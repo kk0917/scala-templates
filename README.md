@@ -22,6 +22,12 @@ This template uses when a new Scala lang project creates with sbt build tool. Th
 	- more info: [foundweekends.org/giter8](http://www.foundweekends.org/giter8/testing.html)
 3. Done!
 
+## Addition
+
+If you use Scalastyle, Run this command at project root directory.
+
+- `sbt scalastyleGenerateConfig`
+
 ## Licence
 
 This software is released under the MIT License, see LICENSE.
