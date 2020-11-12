@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        scala-version: ["2.11.12", "2.12.12", "2.13.3"]
   steps:
     - uses: actions/checkout@v2
     - name: Run tests
@@ -30,8 +30,8 @@ jobs:
     - uses: TriPSs/conventional-changelog-action@v3
     - name: Conventional Changelog Action
     - uses: wagoid/commitlint-github-action@v1
+    - name: commitlint
       with:
         configFile: ./.commitlintrc.js
-    - name: commitlint
       # with:
         # github-token: ${{ secrets.github_token }}
