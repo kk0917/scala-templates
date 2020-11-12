@@ -14,7 +14,8 @@ jobs:
     strategy:
       matrix:
         scala-version: ["2.11.12", "2.12.12", "2.13.3"]
-  steps:
+
+    steps:
     - uses: actions/checkout@v2
     - name: Run tests
       run: sbt coverage test
@@ -33,5 +34,3 @@ jobs:
     - name: commitlint
       with:
         configFile: ./.commitlintrc.js
-      # with:
-        # github-token: ${{ secrets.github_token }}
