@@ -1,4 +1,4 @@
-name: Scala CI
+name: Scala CI and commitlint
 on:
   push:
     branches:
@@ -9,29 +9,29 @@ on:
       - master
       - develop
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: sbt coverage test
-      - name: Coverage Report
-        run: sbt coverageReport
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          fail_ci_if_error: true
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Formatting
-        run: sbt scalafmtSbtCheck scalafmtCheck test:scalafmtCheck
-      - uses: TriPSs/conventional-changelog-action@v3
-        name: Conventional Changelog Action
-      - uses: wagoid/commitlint-github-action@v1
-          with:
-            configFile: ./.commitlintrc.js
-          name: commitlint
-        # with:
-          # github-token: ${{ secrets.github_token }}
+    strategy:
+      matrix:
+        scala-version: ["2.11.12", "2.12.12", "2.13.3"]
+  steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      run: sbt coverage test
+    - name: Coverage Report
+      run: sbt coverageReport
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
+    - uses: actions/checkout@v2
+    - name: Formatting
+      run: sbt scalafmtSbtCheck scalafmtCheck test:scalafmtCheck
+    - uses: TriPSs/conventional-changelog-action@v3
+    - name: Conventional Changelog Action
+    - uses: wagoid/commitlint-github-action@v1
+    - name: commitlint
+      with:
+        configFile: ./.commitlintrc.js
+      # with:
+        # github-token: ${{ secrets.github_token }}
